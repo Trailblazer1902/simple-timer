@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Timer</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	
+	<style type="text/css">
+		
+	body{
+		font-family: lato;
+		background: url(Images/i3.jpg);
+		background-position: fixed;
+		background-repeat: no-repeat;
+		background-size: cover;
+		display: flex;
+		min-height: 100vh;
+		justify-content: center;
+	}	
+	.contained {		
+		flex: 0 0 80%;
+		margin: 30px 10px 10px 10px;
+		height:500px;
+		width: 1000px;
+		border: 1px solid grey;
+		border-radius:  0px 0px 900px 900px; 
+		background-color: rgba(235,237,239, 0.3);
+		box-shadow: 10px;
+	}
+	.table {		
+		text-align: center;		
+		text-align: center;
+		color: white;		
+	}
+
+	span.appName {
+		font-size: 4rem;
+		font-weight: bolder;
+	}
+	input {
+		justify-content: center;
+		text-align: center;
+		font-size: 3rem;
+		font-family: lato;
+		font-style: bolder;
+		border-radius: 3px; 
+		margin-right: 0px; 
+		width: 90px; 
+		height: 40px;
+	}
+
+	.startButton{
+		margin-top: 30px; 		
+		height: 100px; 
+		width: 100px; 
+		border-radius: 90px; 
+		font-size: 25px;
+		box-shadow: 0 0 15px grey;
+	}
+
+	div > button.BtnColor{
+		border-radius: 100%;
+		width: 50px;
+		height: 50px;
+		box-shadow: 0 0 10px #8833d6;
+	}
+
+	div#greeting {
+		font-size: 15pt;
+		font-weight:;
+		color: black;
+		letter-spacing: 10px;
+	}
+
+	footer {
+		padding: 20px;
+	}
+	</style>
+
+	<script type="text/javascript">
+		let a = document.getElementById('hr').value;
+		let b = document.getElementById('min').value;
+		let c = document.getElementById('secs').value;
+
+		function countDownTime(){
+			let a = document.getElementById('hr').value;
+			let b = document.getElementById('min').value;
+			let c = document.getElementById('secs').value;
+			
+			if (hr.value > 0 && min.value == 0){
+					 	hr.value--;
+					 	min.value=60;
+			}
+
+			if (min.value > 0 && secs.value == 0){
+					 	min.value--;
+					 	secs.value=60;
+			}
+				
+			if (secs.value > 0 && secs.value <= 60){	
+					secs.value--;
+					setTimeout(countDownTime,1000);
+			}
+
+			if (secs.value <= 9 && secs.value > 0) {
+				secs.value = "0" + secs.value;					
+			}
+
+			if (c <= 60){
+				document.getElementById('secs').style.color = "black";
+			}
+
+			if (c <= 11) {
+				document.getElementById('secs').style.color = "gold";
+			}
+
+			if (c < 5 && c === 0) {
+				document.getElementById('secs').style.color = "rgba(222,11,11, 1)";				
+			}
+
+			if ((a < 0 || b < 0 || c  < 0)) {
+				alert("Error! Please ensure you type in a positive number")				
+			} else if ((a=="" && b=="" && c=="")) {
+				alert("Error! Please enter some digits.")
+			} else if (a==0 && b==0 && c==0) {
+				alarm();
+				alert("Time Out!!!");
+				a =="";
+				b =="";
+				c =="";
+			}
+			
+		}
+
+		function alarm() {
+				alarm = new Audio();
+				alarm.src="tone.mp3";
+				alarm.play();	
+									
+		}
+			
+		function changeColor () {
+			const colors = ['grey', 'green', '#282923'];
+	        let bodyBcg = document.querySelector('body'); 
+	        let c = Math.floor(Math.random()*(colors.length));
+	        bodyBcg.style.background = colors[c];
+	        bodyBcg.style.backgroundRepeat = 'no-repeat';
+	        bodyBcg.style.backgroundSize = '100%';
+	        console.log(c);
+		}
+
+	function changeImage(){
+		const colors = ['url(Images/i1.jpg)', 'url(Images/i3.jpg)', 'url(Images/i4.jpg)'];
+        var bodyBcg = document.querySelector('body');
+        var c = Math.floor(Math.random()*(colors.length));
+        bodyBcg.style.background = colors[c];
+        bodyBcg.style.backgroundRepeat = 'no-repeat';
+        bodyBcg.style.backgroundSize = '100%';
+        console.log(c);
+	}
+
+	function stop(){
+		let a = document.getElementById('hr').value;
+			let b = document.getElementById('min').value;
+			let c = document.getElementById('secs').value;
+		a =='';
+		b =='';
+		c =='';
+		alarm.pause();
+	}
+
+	
+	function greet(){
+		let tym = new Date();
+		let greeter = tym.getHours();
+		if (greeter <= 11) {
+			document.getElementById('greeting').innerHTML = "<marquee>Good Morning!</marquee>" 			
+		} else if (greeter >= 12 && greeter <= 15){
+			document.getElementById('greeting').innerHTML = "<marquee>Good Afternoon!</marquee>"
+		} else {
+			document.getElementById('greeting').innerHTML = "<marquee>Good Evening!</marquee>"
+		}
+	}
+	</script>
+</head>
+
+<body onload="greet()">
+		
+	<div align="center" class="contained">
+	 <div id="greeting"></div>
+	
+	<table class="table" align="center">
+		<th colspan="4">
+			<span class="appName">SIMPLE TIMER<sup>&#8482;</sup></span>
+		<br><br><br>
+		</th>
+		<tr align="center">
+			<td>
+				<span>HOURS</span><br/>
+				<input type="number" min="0" name="Hour" id="hr">
+			</td>
+			<td>
+				<span>MINUTES</span> <br/>
+				<input type="number" min="0" name="Minutes" id="min">
+			</td>
+			<td>
+				<span>SECONDS</span><br/>
+				<input type="number" min="0" name="Seconds" id="secs">
+			</td>
+		</tr>
+
+		<tr align="center">
+
+			<td align="center" colspan="4">
+				<button align="center" onclick="countDownTime()" class="startButton">START</button>
+			</td>	
+
+				
+		</tr>
+	</table>
+	 
+	<div>
+		<button class="BtnColor" onclick="changeColor()">Color</button>
+		<button class="BtnColor" onclick="changeImage()">Image</button>		
+	</div>
+<footer><a href="" style="text-decoration: none; color: white;"> &#169; Adegboyega Blessing Oct. 19 2018</a></footer>	
+
+</div>
+</body>
+</html>
